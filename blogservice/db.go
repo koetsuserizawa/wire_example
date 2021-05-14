@@ -8,15 +8,15 @@ import (
 )
 
 type DbConfig struct {
-	host   string
-	port   int
-	user   string
-	pass   string
-	dbName string
+	Host   string
+	Port   int
+	User   string
+	Pass   string
+	DbName string
 }
 
 func NewDb(cnf DbConfig) (*sql.DB, error) {
-	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", cnf.user, cnf.pass, cnf.host, cnf.port, cnf.dbName)
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", cnf.User, cnf.Pass, cnf.Host, cnf.Port, cnf.DbName)
 	db, err := sql.Open("mysql", dsn)
 	return db, err
 }

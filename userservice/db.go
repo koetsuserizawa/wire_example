@@ -2,21 +2,15 @@ package userservice
 
 import (
 	"database/sql"
-	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type DbConfig struct {
-	host   string
-	port   int
-	user   string
-	pass   string
-	dbName string
+type Config struct {
+	DSN string
 }
 
-func NewDb(cnf DbConfig) (*sql.DB, error) {
-	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", cnf.user, cnf.pass, cnf.host, cnf.port, cnf.dbName)
-	db, err := sql.Open("mysql", dsn)
+func NewDb(cnf Config) (*sql.DB, error) {
+	db, err := sql.Open("mysql", cnf.DSN)
 	return db, err
 }

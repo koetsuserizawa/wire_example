@@ -3,8 +3,8 @@ package userservice
 import "database/sql"
 
 type User struct {
-	id   string
-	name string
+	ID   string
+	Name string
 }
 
 type UserRepositoryInterface interface {
@@ -24,14 +24,14 @@ func NewUserRepository(db *sql.DB) UserRepositoryInterface {
 
 func (r *UserRepository) Register(name string) (*User, error) {
 	return &User{
-		id:   "",
-		name: name,
+		ID:   "",
+		Name: name,
 	}, nil
 }
 
 func (r *UserRepository) Get(id string) (*User, error) {
 	return &User{
-		id:   "",
-		name: "",
+		ID:   "",
+		Name: "",
 	}, nil
 }

@@ -3,11 +3,11 @@ package blogservice
 import (
 	"database/sql"
 
-	"github.com/koetsuserizawa/wire_example/userserivce"
+	"github.com/koetsuserizawa/wire_example/userservice"
 )
 
 type Article struct {
-	User userserivce.User
+	User userservice.User
 	Text string
 }
 
