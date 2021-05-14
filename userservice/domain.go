@@ -9,7 +9,7 @@ type UserService struct {
 	repo UserRepositoryInterface
 }
 
-func NewUserService(r UserRepositoryInterface) UserRepositoryInterface {
+func NewUserService(r UserRepositoryInterface) UserServiceInterface {
 	return &UserService{
 		repo: r,
 	}

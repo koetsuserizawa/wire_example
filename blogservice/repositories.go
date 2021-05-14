@@ -19,9 +19,9 @@ type BlogRepository struct {
 	db *sql.DB
 }
 
-func NewBlogRepository(db *sql.DB) BlogRepositoryInterface {
+func NewBlogRepository(db *ArticleDB) BlogRepositoryInterface {
 	return &BlogRepository{
-		db: db,
+		db: db.DB,
 	}
 }
 

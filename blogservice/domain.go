@@ -9,7 +9,7 @@ type BlogService struct {
 	repo BlogRepositoryInterface
 }
 
-func NewBlogService(r BlogRepositoryInterface) BlogRepositoryInterface {
+func NewBlogService(r BlogRepositoryInterface) BlogServiceInterface {
 	return &BlogService{
 		repo: r,
 	}
@@ -20,6 +20,5 @@ func (s *BlogService) Read(userID string) ([]Article, error) {
 }
 
 func (s *BlogService) Write(userID string, text string) error {
-	//fmt.Println("************")
 	return s.repo.Write(userID, text)
 }

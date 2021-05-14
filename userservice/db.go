@@ -6,11 +6,16 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type Config struct {
-	DSN string
+type UserDB struct {
+	DB *sql.DB
 }
 
-func NewDb(cnf Config) (*sql.DB, error) {
-	db, err := sql.Open("mysql", cnf.DSN)
-	return db, err
+func NewDb(dsn string) *UserDB {
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		panic(err)
+	}
+	return &UserDB{
+		DB: db,
+	}
 }
