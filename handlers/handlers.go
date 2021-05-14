@@ -22,27 +22,22 @@ func NewUserServiceHandler(us userservice.UserServiceInterface) *UserServiceHand
 
 func (h *UserServiceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-	case http.MethodGet:
-		fmt.Println(r.Body)
-		//Get user.
-		w.WriteHeader(http.StatusOK)
-		return
 	case http.MethodPut:
 		//Register user.
 		b, err := parseRequestBody(r)
+		id := b["id"].(string)
 		name := b["name"].(string)
-		if err != nil || name == "" {
+		if err != nil || name == "" || id == "" {
 			fmt.Println(err)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		u, err := h.s.Register(name)
-		if err != nil {
+		errIns := h.s.Register(id, name)
+		if errIns != nil {
 			fmt.Println(err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		fmt.Println(u.ID)
 		w.WriteHeader(http.StatusOK)
 		return
 	default:

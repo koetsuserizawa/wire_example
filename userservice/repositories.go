@@ -1,6 +1,9 @@
 package userservice
 
-import "database/sql"
+import (
+	"database/sql"
+	"fmt"
+)
 
 type User struct {
 	ID   string
@@ -8,7 +11,7 @@ type User struct {
 }
 
 type UserRepositoryInterface interface {
-	Register(string) (*User, error)
+	Register(string, string) error
 	Get(string) (*User, error)
 }
 
@@ -22,16 +25,24 @@ func NewUserRepository(db *sql.DB) UserRepositoryInterface {
 	}
 }
 
-func (r *UserRepository) Register(name string) (*User, error) {
-	return &User{
-		ID:   "",
-		Name: name,
-	}, nil
+func (r *UserRepository) Register(id string, name string) error {
+	q := "INSERT INTO user(user_id, user_name) VALUES(?, ?)"
+	in, err := r.db.Prepare(q)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	in.Exec(id, name)
+	return nil
 }
 
 func (r *UserRepository) Get(id string) (*User, error) {
-	return &User{
-		ID:   "",
-		Name: "",
-	}, nil
+	var u User
+	q := "SELECT user_id, user_name FROM user WHERE user_id = ?"
+	err := r.db.QueryRow(q, id).Scan(&u.ID, &u.Name)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	return &u, nil
 }

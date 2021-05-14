@@ -16,9 +16,10 @@ func NewBlogService(r BlogRepositoryInterface) BlogRepositoryInterface {
 }
 
 func (s *BlogService) Read(userID string) ([]Article, error) {
-	return s.Read(userID)
+	return s.repo.Read(userID)
 }
 
 func (s *BlogService) Write(userID string, text string) error {
-	return s.Write(userID, text)
+	//fmt.Println("************")
+	return s.repo.Write(userID, text)
 }
